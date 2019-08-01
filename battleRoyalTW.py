@@ -264,26 +264,31 @@ time.sleep(2100)
 
 # 7. Bucle de duelos....
 while len(listaEliminados)<len(listaJugadores)-1:
-    #duelo
-    resultado = duelo(listaJugadores, listaEliminados,  listaBajas) # realizar un duelo
-    # almacenamos ganador y perdedor
-    ganador = resultado[0]
-    perdedor = resultado[1]
-    # actualizamos bajas y eliminados
-    listaBajas = actualizarBajas(listaBajas, ganador)
-    listaEliminados.append(listaJugadores[perdedor]) # añadir perdedor a eliminados
-    eliminadosTXT = open('eliminados.txt','w')
-    for linea in range(len(listaEliminados)):
-        eliminadosTXT.write(listaEliminados[linea]+'\n')    # reescribir lista
-    eliminadosTXT.close()
-    # actualizamos tablero
-    actualizarTablero(x,y,listaJugadores,listaEliminados)
-    imagen.save("im.png")
-    print("El siguiente enfrentamiento sera entre",resultado[2],"y",resultado[3])
-    print("Ha ganado @"+listaJugadores[ganador]+"!!!\n\n")
-    tweetDuelo(resultado[2], resultado[3],ganador, perdedor, listaJugadores)
-    print("esperando...")
-    time.sleep(2100) # time between the tweets
+    opcion = int(random.random(10))
+    if opcion == 3:
+        resucitar(listaEliminados)
+        time.sleep(2100)
+    else:
+        #duelo
+        resultado = duelo(listaJugadores, listaEliminados,  listaBajas) # realizar un duelo
+        # almacenamos ganador y perdedor
+        ganador = resultado[0]
+        perdedor = resultado[1]
+        # actualizamos bajas y eliminados
+        listaBajas = actualizarBajas(listaBajas, ganador)
+        listaEliminados.append(listaJugadores[perdedor]) # añadir perdedor a eliminados
+        eliminadosTXT = open('eliminados.txt','w')
+        for linea in range(len(listaEliminados)):
+            eliminadosTXT.write(listaEliminados[linea]+'\n')    # reescribir lista
+        eliminadosTXT.close()
+        # actualizamos tablero
+        actualizarTablero(x,y,listaJugadores,listaEliminados)
+        imagen.save("im.png")
+        print("El siguiente enfrentamiento sera entre",resultado[2],"y",resultado[3])
+        print("Ha ganado @"+listaJugadores[ganador]+"!!!\n\n")
+        tweetDuelo(resultado[2], resultado[3],ganador, perdedor, listaJugadores)
+        print("esperando...")
+        time.sleep(2100) # time between the tweets
 
 #tweet ganador/a
 print("EL GANADOR/A HA SIDOOO...", listaJugadores[ganador])
